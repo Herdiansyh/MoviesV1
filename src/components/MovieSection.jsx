@@ -116,8 +116,10 @@ export default function MovieSection({
         </div>
         <div
           ref={containerRef}
-          className={`flex ${
-            type === "daftar-saya" ? "flex-wrap" : ""
+          className={` ${
+            type === "daftar-saya"
+              ? "md:flex-wrap md:flex grid grid-cols-3 "
+              : "flex"
           } gap-[16px] sm:gap-[32px] overflow-x-auto p-3 no-scrollbar hover:cursor-grab`}
           onMouseDown={handleMouseDown}
           onMouseUp={handleMouseUp}
@@ -127,10 +129,10 @@ export default function MovieSection({
           onTouchEnd={handleMouseUp}
           onTouchMove={handleTouchMove}
         >
-          {datamovies.map((movie) => (
+          {datamovies.map((movie, index) => (
             <article
               onClick={() => handleSelectMovie(movie)}
-              key={movie.id}
+              key={index}
               className={`flex-shrink-0 relative hover:cursor-pointer ${
                 type === "vertikal"
                   ? "sm:w-[302px] sm:h-[162px] w-[309px] h-[151px] sm:rounded-[8px] rounded-[7px]"

@@ -2,8 +2,14 @@ import React from "react";
 import { useMyList } from "./context/MyListContext";
 
 export default function PopupMovie({ movie, onClose }) {
-  const { addToMyList } = useMyList();
+  const { addToMyList, myList, removeFromMyList } = useMyList();
 
+  const isnMyList = myList.some((m) => m.title === movie.title);
+
+  const handleRemove = (e) => {
+    e.stopPropagation();
+    removeFromMyList(movie.title);
+  };
   const handleAdd = (e) => {
     e.stopPropagation();
     addToMyList(movie);
@@ -31,15 +37,24 @@ export default function PopupMovie({ movie, onClose }) {
       <div>
         <div className="flex justify-between p-4  ">
           <div className="flex gap-5">
-            <button className="p-2 sm:w-[40px] flex items-center justify-center   bg-white rounded-full hover:bg-white/90">
+            <button className=" hover:cursor-pointer p-2 sm:w-[40px] flex items-center justify-center   bg-white rounded-full hover:bg-white/90">
               <i className="fi fi-sr-play text-black "></i>
             </button>
-            <button
-              onClick={handleAdd}
-              className="sm:w-[40px] border flex items-center justify-center  border-solid border-gray-500 bg-[#181A1C] rounded-full hover:bg-gray-700"
-            >
-              <i className="fi fi-sr-plus"></i>
-            </button>
+            {isnMyList ? (
+              <button
+                onClick={handleRemove}
+                className="hover:cursor-pointer sm:w-[40px] border flex items-center justify-center  border-solid border-gray-500 bg-[#181A1C] rounded-full hover:bg-gray-700"
+              >
+                <i class="fi fi-sr-check"></i>
+              </button>
+            ) : (
+              <button
+                onClick={handleAdd}
+                className="hover:cursor-pointer sm:w-[40px] border flex items-center justify-center  border-solid border-gray-500 bg-[#181A1C] rounded-full hover:bg-gray-700"
+              >
+                <i className="fi fi-sr-plus"></i>
+              </button>
+            )}
           </div>
         </div>
         <div className="flex gap-3 m-5 items-center ">

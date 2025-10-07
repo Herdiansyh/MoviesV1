@@ -14,13 +14,15 @@ export function MyListProvider({ children }) {
   }, [myList]);
 
   const addToMyList = (movie) => {
-    if (!myList.some((m) => m.id === movie.id)) {
+    if (!myList.some((m) => m.title === movie.title)) {
       setMyList([...myList, movie]);
+      alert(`${movie.title} telah ditambahkan ke Daftar Saya`);
     }
   };
 
-  const removeFromMyList = (id) => {
-    setMyList(myList.filter((m) => m.id !== id));
+  const removeFromMyList = (title) => {
+    setMyList(myList.filter((m) => m.title !== title));
+    alert(`${title} telah dihapus dari Daftar Saya`);
   };
 
   return (
